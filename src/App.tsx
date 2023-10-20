@@ -35,9 +35,42 @@ function App() {
       });
   }
 
+  function handleSortChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const sortType = event.target.value;
+
+    let sortedRecipes = [...recipeArray];
+
+    switch (sortType) {
+      case "name-asc":
+        sortedRecipes.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name-desc":
+        sortedRecipes.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "cuisine-asc":
+        sortedRecipes.sort((a, b) => a.cuisine.localeCompare(b.cuisine));
+        break;
+      case "cuisine-desc":
+        sortedRecipes.sort((a, b) => b.cuisine.localeCompare(a.cuisine));
+        break;
+      default:
+        // If you have a default order from the API or another sorting method, handle it here.
+        break;
+    }
+
+    setRecipeArray(sortedRecipes);
+  }
+
   return (
     <div className="App">
       <button onClick={getRecipes}>Get Recipes</button>
+      <select onChange={handleSortChange}>
+        <option value="default">Default</option>
+        <option value="name-asc">Name (A-Z)</option>
+        <option value="name-desc">Name (Z-A)</option>
+        <option value="cuisine-asc">Cuisine (A-Z)</option>
+        <option value="cuisine-desc">Cuisine (Z-A)</option>
+      </select>
       {recipeArray.map((recipe, index) => (
         <div key={index} className="recipe">
           <h2>{recipe.name}</h2>
