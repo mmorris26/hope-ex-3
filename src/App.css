@@ -28,6 +28,34 @@
   color: #61dafb;
 }
 
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 16px; 
+  margin-top: 20px; 
+}
+
+.recipe {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.recipe:hover {
+  transform: translateY(-5px);
+}
+
+
+.recipe img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px; /* For rounded corners on images */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -20,6 +20,10 @@ function App() {
 
   const [recipeArray, setRecipeArray] = useState<Recipe[]>([]);
 
+  const [newRecipeName, setNewRecipeName] = useState<string>("");
+  const [newRecipeCuisine, setNewRecipeCuisine] = useState<string>("");
+  const [newRecipeImage, setNewRecipeImage] = useState<string>("");
+
   function getRecipes() {
     fetch(
       "https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=1d11e1e9&app_key=a0a011287d9011f1443c97fecb290044"
@@ -54,11 +58,25 @@ function App() {
         sortedRecipes.sort((a, b) => b.cuisine.localeCompare(a.cuisine));
         break;
       default:
-        // If you have a default order from the API or another sorting method, handle it here.
         break;
     }
 
     setRecipeArray(sortedRecipes);
+  }
+
+  function handleAddRecipe(event: React.FormEvent) {
+    event.preventDefault();
+
+    const newRecipe: Recipe = {
+      name: newRecipeName,
+      cuisine: newRecipeCuisine,
+      image: newRecipeImage,
+    };
+    setRecipeArray([...recipeArray, newRecipe]);
+
+    setNewRecipeName("");
+    setNewRecipeCuisine("");
+    setNewRecipeImage("");
   }
 
   return (
@@ -71,13 +89,50 @@ function App() {
         <option value="cuisine-asc">Cuisine (A-Z)</option>
         <option value="cuisine-desc">Cuisine (Z-A)</option>
       </select>
-      {recipeArray.map((recipe, index) => (
-        <div key={index} className="recipe">
-          <h2>{recipe.name}</h2>
-          <img src={recipe.image} alt={recipe.name} />
-          <p>Cuisine: {recipe.cuisine}</p>
-        </div>
-      ))}
+      <div>
+        <form onSubmit={handleAddRecipe}>
+          <div>
+            <label>Name:</label>
+            <input
+              type="text"
+              value={newRecipeName}
+              onChange={(e) => setNewRecipeName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label>Cuisine:</label>
+            <input
+              type="text"
+              value={newRecipeCuisine}
+              onChange={(e) => setNewRecipeCuisine(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label>Image URL:</label>
+            <input
+              type="url"
+              value={newRecipeImage}
+              onChange={(e) => setNewRecipeImage(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit">Add Recipe</button>
+        </form>
+      </div>
+      <div className="recipe-grid">
+        {recipeArray.map((recipe, index) => (
+          <div key={index} className="recipe">
+            <h2>{recipe.name}</h2>
+            <img src={recipe.image} alt={recipe.name} />
+            <p>Cuisine: {recipe.cuisine}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
