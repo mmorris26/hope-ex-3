@@ -81,48 +81,56 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={getRecipes}>Get Recipes</button>
-      <select onChange={handleSortChange}>
-        <option value="default">Default</option>
-        <option value="name-asc">Name (A-Z)</option>
-        <option value="name-desc">Name (Z-A)</option>
-        <option value="cuisine-asc">Cuisine (A-Z)</option>
-        <option value="cuisine-desc">Cuisine (Z-A)</option>
-      </select>
+      <button className="button" onClick={getRecipes}>
+        Get Recipes
+      </button>
+      <div className="select-container">
+        <select onChange={handleSortChange}>
+          <option value="default">Default</option>
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="cuisine-asc">Cuisine (A-Z)</option>
+          <option value="cuisine-desc">Cuisine (Z-A)</option>
+        </select>
+      </div>
       <div>
-        <form onSubmit={handleAddRecipe}>
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              value={newRecipeName}
-              onChange={(e) => setNewRecipeName(e.target.value)}
-              required
-            />
-          </div>
+        <div className="form-container">
+          <form onSubmit={handleAddRecipe}>
+            <div>
+              <label>Name:</label>
+              <input
+                type="text"
+                value={newRecipeName}
+                onChange={(e) => setNewRecipeName(e.target.value)}
+                required
+              />
+            </div>
 
-          <div>
-            <label>Cuisine:</label>
-            <input
-              type="text"
-              value={newRecipeCuisine}
-              onChange={(e) => setNewRecipeCuisine(e.target.value)}
-              required
-            />
-          </div>
+            <div>
+              <label>Cuisine:</label>
+              <input
+                type="text"
+                value={newRecipeCuisine}
+                onChange={(e) => setNewRecipeCuisine(e.target.value)}
+                required
+              />
+            </div>
 
-          <div>
-            <label>Image URL:</label>
-            <input
-              type="url"
-              value={newRecipeImage}
-              onChange={(e) => setNewRecipeImage(e.target.value)}
-              required
-            />
-          </div>
+            <div>
+              <label>Image URL:</label>
+              <input
+                type="url"
+                value={newRecipeImage}
+                onChange={(e) => setNewRecipeImage(e.target.value)}
+                required
+              />
+            </div>
 
-          <button type="submit">Add Recipe</button>
-        </form>
+            <button className="button" type="submit">
+              Add Recipe
+            </button>
+          </form>
+        </div>
       </div>
       <div className="recipe-grid">
         {recipeArray.map((recipe, index) => (
