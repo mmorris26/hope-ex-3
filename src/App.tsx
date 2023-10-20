@@ -7,13 +7,13 @@ function App() {
   const [catFactArray, setCatFactArray] = useState<string[]>([]);
 
   function getCatFacts() {
-    fetch("https://meowfacts.herokuapp.com/?count=10")
+    fetch(
+      "https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=1d11e1e9&app_key=a0a011287d9011f1443c97fecb290044"
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setCatFactArray(data.data);
-        // const factsArray = Object.values(data.data) as string[];
-        // setCatFactArray(factsArray);
+        console.log(data.hits);
+        // setCatFactArray(data.hits);
       });
   }
 
